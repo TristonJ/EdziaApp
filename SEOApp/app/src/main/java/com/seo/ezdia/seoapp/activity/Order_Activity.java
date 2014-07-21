@@ -31,8 +31,8 @@ public class Order_Activity extends Activity implements View.OnClickListener{
         //Implement a swipe listener
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.rl_order);
         rl.setOnTouchListener(new OnSwipeTouchListener(){
-            public void onSwipeLeft(){/*Do left action*/}
-            public void onSwipeRight(){/*Do right action*/}
+            public void onSwipeLeft(){swipeLeft();}
+            public void onSwipeRight(){swipeRight();}
         });
 
         //Normally get data and THEN set the values of all the views
@@ -60,6 +60,14 @@ public class Order_Activity extends Activity implements View.OnClickListener{
                 this.finish();
                 break;
         }
+    }
+
+    private void swipeRight(){
+        //Here is where the order would be changed. Resetting all of the views
+    }
+
+    private void swipeLeft(){
+        //Here is where the order would be changed. Resetting all of the views
     }
 
     @Override

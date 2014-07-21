@@ -10,6 +10,18 @@ import android.widget.TextView;
 
 import com.seo.ezdia.seoapp.R;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+
 public class Login_Activity extends Activity implements View.OnClickListener {
 
     EditText et_name;
@@ -38,9 +50,31 @@ public class Login_Activity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.bt_login_next:
+                try{
+                    String link = "http://asdasd.thesqlserver.com/phpscript.php?name="+
+                            et_name.getText().toString() + "&email="+et_email.getText().toString() +
+                            "&phone="+et_phone.getText().toString();
+                    URL url = new URL(link);
+                    HttpClient client = new DefaultHttpClient();
+                    HttpGet request = new HttpGet();
+                    request.setURI(new URI(link));
+                    HttpResponse response = client.execute(request);
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(response.getEntity().getContent()));
+                    StringBuffer sb = new StringBuffer("");
+                    String line = "";
+                    while ((line = in.readLine()) != null){
+                        sb.append(line);
+                        break;
+                    }
+                    in.close();
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
                 //Proceed to next screen and maybe submit data??
                 Intent submitScreen = new Intent(Login_Activity.this, Submit_Activity.class);
-                //If need use "putExtra" to pass over whatever data necessary
+                //If needed  use "putExtra" to pass over whatever data necessary
                 startActivity(submitScreen);
                 this.finish();
                 break;
@@ -50,9 +84,11 @@ public class Login_Activity extends Activity implements View.OnClickListener {
                 Intent i = new Intent(Intent.ACTION_SEND);
 
                 i.setType("plain/text");
-                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ezdia@email.com"});
-                //Any pre-set text here
-
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{
+                        getString(R.string.contact_us_recipient_)});
+                i.putExtra(Intent.EXTRA_SUBJECT, new String[]{
+                        getString(R.string.contact_us_subject_ )});
+                i.putExtra(Intent.EXTRA_TEXT, getString(R.string.contact_us_prepopulated_message_));
                 startActivity(Intent.createChooser(i, "Send mail..."));
                 break;
 
@@ -61,9 +97,10 @@ public class Login_Activity extends Activity implements View.OnClickListener {
                 Intent j = new Intent(Intent.ACTION_SEND);
 
                 j.setType("plain/text");
-                j.putExtra(Intent.EXTRA_EMAIL, new String[]{"whateveremailsifspecified"});
-                j.putExtra(Intent.EXTRA_SUBJECT, new String[]{"Hey, try this awesome new app!"});
-                j.putExtra(Intent.EXTRA_TEXT, "Hey I encourage you to try this app for blah blah blah...");
+                j.putExtra(Intent.EXTRA_SUBJECT, new String[]{
+                        getString(R.string.share_app_subject_)});
+                j.putExtra(Intent.EXTRA_TEXT, new String[]{
+                        getString(R.string.share_app_message_)});
 
                 startActivity(Intent.createChooser(j, "Send mail..."));
                 break;

@@ -10,5 +10,10 @@
     <string name="title_activity_add__info_">Add_Info_Activity</string>
     <string name="ams_description">*AMS is the average monthly search volume within the United States. You may define the upper and lower bounds for the campaign.</string>
     <string name="title_activity_order_">Order_Activity</string>
+    <string name="contact_us_recipient_">Whatever@whateveer.com</string>
+    <string name="contact_us_subject_">Whatever the email subject is</string>
+    <string name="contact_us_prepopulated_message_">Blah blah blah</string>
+    <string name="share_app_subject_">Share this app!</string>
+    <string name="share_app_message_">Blah blah blah</string>
 
 </resources>

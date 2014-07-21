@@ -17,6 +17,8 @@ public class Submit_Activity extends Activity implements View.OnClickListener{
     long upperBounds = 0;
     long lowerBounds = 0;
 
+    String name, terms;
+
     EditText et_campaign;
     EditText et_terms;
 
@@ -56,7 +58,7 @@ public class Submit_Activity extends Activity implements View.OnClickListener{
                 this.finish();
                 break;
 
-            //Add Info
+            //Add Info Screen
             case R.id.tv_add_info_cancel:
                 upperBounds = 0; lowerBounds = 0;
                 setContentView(R.layout.activity_submit_);
@@ -68,12 +70,18 @@ public class Submit_Activity extends Activity implements View.OnClickListener{
                 lowerBounds = Long.valueOf(et_lower.getText().toString());
 
                 setContentView(R.layout.activity_submit_);
+
+                et_campaign.setText(name);
+                et_terms.setText(terms);
                 break;
         }
     }
 
     private void addInfo(){
-        setContentView(R.layout.add__info_);
+        name = et_campaign.getText().toString();
+        terms = et_terms.getText().toString();
+
+        setContentView(R.layout.add_info_);
 
         TextView tv_cancel = (TextView) findViewById(R.id.tv_add_info_cancel);
         Button done = (Button) findViewById(R.id.bt_add_info_done);
